@@ -8,8 +8,8 @@ int main(){
 double dz(double y1,double y2){
 	return 1 - y1 + y2;
 }
-double dw(double y1,double y2, double y3,double x){
-	return	y1 - 2 * y2 + 0.25 * x + y3;
+double dw(double y1,double y2, double y3,double w,double x){
+	return	y1 -0.25 * w - 2 * y2 + 0.25 * x + y3;
 }
 double dx(double y2,double y3,double w,double x){
 	return	0.5 + y2 + 0.25 * w - 0.25 * x - 2 *y3;
