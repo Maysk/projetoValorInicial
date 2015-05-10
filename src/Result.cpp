@@ -47,3 +47,7 @@ void Result::show(){
 		cout << "Rodada: " << i << "\tTempo: " << i * deltaT << "\ty1: " << getValue(0,i) << "\ty2: " << getValue(1,i) << "\ty3: " << getValue(2,i) << endl;
 	cout << "Tempo de execução: " << time << " secs\n";
 }
+void Result::showFinal(){
+	cout << "Rodadas: " << (length-1) << "\tTempo: " << (length-1) * deltaT << "\ty1: " << getValue(0,length-1) << "\ty2: " << getValue(1,length-1) << "\ty3: " << getValue(2,length-1) << "\t";
+	cout << "Tempo de execução: " << time << " secs\n";	
+}

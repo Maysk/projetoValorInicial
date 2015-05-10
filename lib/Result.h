@@ -20,4 +20,5 @@ public:
 	void setDeltaT(double deltaT);
 
 	void show();
+	void showFinal();
 };

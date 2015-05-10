@@ -83,28 +83,43 @@ Result Euler::backward(double error){
 	int index = 1;
 	double currentStepTime = 0 + dt;
 	while(index <= steps){
+		double ykn = result.getValue(0,index-1);
+		double zkn = z[index-1];
+		double ykn1;
+		double dif;
+		do{
+			ykn1 = result.getValue(0,index-1) + dt * zkn;
+			zkn = z[index-1] + dt * (*dz)(ykn,result.getValue(1,index-1));
+			// cout << zkn << endl;
+			dif = fabs(ykn1 - ykn);
+			ykn = ykn1;
+		}while(dif > error);
+		z[index] = zkn;
+		result.setValue(0,index,ykn);
 
+		ykn = result.getValue(1,index-1);
+		double wkn = w[index-1];
+		do{
+			ykn1 = result.getValue(1,index-1) + dt * wkn;
+			wkn = w[index-1] + dt * (*dw)(result.getValue(0,index-1),ykn,result.getValue(2,index-1),w[index-1],x[index-1]);
+			// wkn = w[index-1] + dt * (*dw)(result.getValue(0,index),ykn,result.getValue(2,index-1),w[index-1],x[index-1]);
+			dif = fabs(ykn1 - ykn);
+			ykn = ykn1;
+		}while(dif > error);
+		w[index] = wkn;
+		result.setValue(1,index,ykn);
 
-
-
-
-
-
-
-		double y1k = result.getValue(0,index-1) + dt * z[index - 1];
-		z[index] = z[index - 1] + dt * (*dz)(result.getValue(0,index-1),result.getValue(1,index-1));
-		result.setValue(0,index,y1k);
-		
-		double y2k = result.getValue(1,index-1) + dt * w[index - 1];
-		w[index] = w[index - 1] + dt * (*dw)(result.getValue(0,index-1),result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
-		result.setValue(1,index,y2k);
-
-		double y3k = result.getValue(2,index-1) + dt * x[index - 1];
-		x[index] = x[index - 1] + dt * (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
-		result.setValue(2,index,y3k);
-
-		currentStepTime+=dt;
-		result.setIterations(index);
+		ykn = result.getValue(2,index-1);
+		double xkn = x[index-1];
+		do{
+			ykn1 = result.getValue(2,index-1) + dt * xkn;
+			xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
+			// xkn = x[index-1] + dt * (*dx)(result.getValue(1,index),result.getValue(2,index-1),w[index],x[index-1]);
+			dif = fabs(ykn1 - ykn);
+			ykn = ykn1;
+		}while(dif > error);
+		x[index] = xkn;
+		result.setValue(2,index,ykn);
 		index++;
 	}
 	end = clock();
