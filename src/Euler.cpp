@@ -14,6 +14,14 @@ Euler::Euler(double (*dz) (double,double),double (*dw)(double,double,double,doub
 	this->steps = floor(t/dt);
 }	
 Result Euler::forward(){
+
+	long double executionTimeInSec = 0;
+
+    clock_t executionTime = 0;
+    clock_t start;
+    clock_t end;
+    start = clock();
+
 	Result result(steps+1);
 	result.setDeltaT(dt);
 	result.setValue(0,0,y1);
@@ -44,6 +52,10 @@ Result Euler::forward(){
 		result.setIterations(index);
 		index++;
 	}
+	end = clock();
+	executionTime = (end - start);
+	executionTimeInSec = executionTime/(long double) CLOCKS_PER_SEC;
+	result.setTime(executionTimeInSec);
 	return result;
 }
 Result Euler::backward(double error){

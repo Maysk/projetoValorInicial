@@ -45,4 +45,5 @@ void Result::setDeltaT(double deltaT){
 void Result::show(){
 	for(int i = 0 ; i < length ; i++)
 		cout << "Rodada: " << i << "\tTempo: " << i * deltaT << "\ty1: " << getValue(0,i) << "\ty2: " << getValue(1,i) << "\ty3: " << getValue(2,i) << endl;
+	cout << "Tempo de execução: " << time << " secs\n";
 }
