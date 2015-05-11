@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <ctime>
 #include "Result.h"
 #include "Euler.h"
 using namespace std;
