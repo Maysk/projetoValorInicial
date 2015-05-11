@@ -84,7 +84,7 @@ Result Euler::backward(double error){
 
 	int index = 1;
 
-	double currentStepTime = 0 + dt;    //Essa variavel nao esta sendo usada. Por que?
+	//double currentStepTime = 0 + dt;    //Essa variavel nao esta sendo usada. Por que?
 
 	while(index <= steps){
 		double ykn = result.getValue(0,index-1);
@@ -117,7 +117,8 @@ Result Euler::backward(double error){
 		double xkn = x[index-1];
 		do{
 			ykn1 = result.getValue(2,index-1) + dt * xkn;
-			xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
+			xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1), ykn, w[index-1], x[index-1]);
+			//xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
 			// xkn = x[index-1] + dt * (*dx)(result.getValue(1,index),result.getValue(2,index-1),w[index],x[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
@@ -142,28 +143,35 @@ Result Euler::eulerModify(double error){
     clock_t end;
     start = clock();
 
+    int index = 1;
+
 	Result result(steps+1);
 	result.setDeltaT(dt);
 	result.setValue(0,0,y1);
 	result.setValue(1,0,y2);
 	result.setValue(2,0,y3);
 
+    double derivadasDeZ[steps+1];
+    double derivadasDeW[steps+1];
+    double derivadasDeX[steps+1];
 	double z[steps+1];
 	double w[steps+1];
 	double x[steps+1];
+
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
-	int index = 1;
+
 	while(index <= steps){
 		double ykn = result.getValue(0,index-1);
 		double zkn = z[index-1];
+		derivadasDeZ[index-1] = (*dz)(result.getValue(0,index-1), result.getValue(1,index-1));
+
 		double ykn1;
 		double dif;
 		do{
 			ykn1 = result.getValue(0,index-1) + (dt/2) * (zkn + z[index-1]);
-			zkn = z[index-1] + (dt/2) * ((*dz)(ykn,result.getValue(1,index-1)) + (*dz)(result.getValue(0,index-1), result.getValue(1,index-1)));
-			// cout << zkn << endl;
+			zkn = z[index-1] + (dt/2) * ((*dz)(ykn,result.getValue(1,index-1)) + derivadasDeZ[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
 		}while(dif > error);
@@ -172,10 +180,10 @@ Result Euler::eulerModify(double error){
 
 		ykn = result.getValue(1,index-1);
 		double wkn = w[index-1];
+		derivadasDeW[index-1] = (*dw)(result.getValue(0,index-1),result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
 		do{
-			ykn1 = result.getValue(1,index-1) + dt * wkn;
-			wkn = w[index-1] + dt * (*dw)(result.getValue(0,index-1),ykn,result.getValue(2,index-1),w[index-1],x[index-1]);
-			// wkn = w[index-1] + dt * (*dw)(result.getValue(0,index),ykn,result.getValue(2,index-1),w[index-1],x[index-1]);
+			ykn1 = result.getValue(1,index-1) + (dt/2) * (wkn + w[index-1]);
+			wkn = w[index-1] + (dt/2) * ((*dw)(result.getValue(0,index-1), ykn, result.getValue(2,index-1), w[index-1],x[index-1]) + derivadasDeW[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
 		}while(dif > error);
@@ -184,15 +192,17 @@ Result Euler::eulerModify(double error){
 
 		ykn = result.getValue(2,index-1);
 		double xkn = x[index-1];
+		derivadasDeX[index - 1] = (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1], x[index-1]);
 		do{
-			ykn1 = result.getValue(2,index-1) + dt * xkn;
-			xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
-			// xkn = x[index-1] + dt * (*dx)(result.getValue(1,index),result.getValue(2,index-1),w[index],x[index-1]);
+			ykn1 = result.getValue(2,index-1) + (dt/2) * (xkn + x[index-1]);
+			xkn = x[index-1] + (dt/2) * ((*dx)(result.getValue(1,index-1), ykn, w[index-1], x[index-1]) + derivadasDeX[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
 		}while(dif > error);
 		x[index] = xkn;
 		result.setValue(2,index,ykn);
+
+
 		index++;
 	}
 	end = clock();
@@ -202,14 +212,4 @@ Result Euler::eulerModify(double error){
 	return result;
 }
 
-Result Euler::iteration(double error,double (*multFac) (double,double)){
 
-}
-
-double Euler::multFacForward(double fnk,double fn1){
-	return fnk; //f(ynĸ-¹,Tn-¹)
-}
-
-double Euler::multFacModify(double fnk,double fn1){
-	return (fnk+fn1)/2;
-}
