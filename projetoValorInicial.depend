@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1431380174 source:c:\users\matheus\documents\cprojects\projetovalorinicial\src\main.cpp
+	"../lib/imports.h"
+
+1431376236 c:\users\matheus\documents\cprojects\projetovalorinicial\lib\imports.h
+	<iostream>
+	<cmath>
+	<ctime>
+	"Result.h"
+	"Euler.h"
+
+1431375536 c:\users\matheus\documents\cprojects\projetovalorinicial\lib\result.h
+
+1431375536 c:\users\matheus\documents\cprojects\projetovalorinicial\lib\euler.h
+
+1431375536 source:c:\users\matheus\documents\cprojects\projetovalorinicial\src\result.cpp
+	"../lib/imports.h"
+
+1431383939 source:c:\users\matheus\documents\cprojects\projetovalorinicial\src\euler.cpp
+	"../lib/imports.h"
+

@@ -2,11 +2,14 @@
 int main(){
 	Euler euler(dz,dw,dx,0,0,0,0,0,0,20,0.01);
 	Result result1 = euler.backward(0.1);
-	Result  result2 = euler.forward();
+	Result result2 = euler.forward();
+	Result result3 = euler.eulerModify(0.1);
 	cout << "Backward:\n";
 	result1.showFinal();
 	cout << "Forward:\n";
 	result2.showFinal();
+	cout << "Modified:\n";
+	result3.showFinal();
     return 0;
 }
 double dz(double y1,double y2){
