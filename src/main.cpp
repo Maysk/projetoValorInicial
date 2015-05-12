@@ -1,6 +1,6 @@
 #include "../lib/imports.h"
 int main(){
-	Euler euler(dz,dw,dx,0,0,0,0,0,0,20,0.01);
+	Euler euler(dz,dw,dx,0,0,0,0,0,0,20,0.001);
 	Result result1 = euler.backward(0.1);
 	Result result2 = euler.forward();
 	Result result3 = euler.eulerModify(0.1);

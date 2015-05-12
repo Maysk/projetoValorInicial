@@ -93,7 +93,7 @@ Result Euler::backward(double error){
 		double dif;
 		do{
 			ykn1 = result.getValue(0, index-1) + dt * zkn;
-			zkn = z[index-1] + dt * (*dz)(ykn,result.getValue(1,index-1));
+			zkn = z[index-1] + dt * (*dz)(ykn1,result.getValue(1,index-1));
 			// cout << zkn << endl;
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
@@ -105,7 +105,7 @@ Result Euler::backward(double error){
 		double wkn = w[index-1];
 		do{
 			ykn1 = result.getValue(1,index-1) + dt * wkn;
-			wkn = w[index-1] + dt * (*dw)(result.getValue(0,index-1),ykn,result.getValue(2,index-1),w[index-1],x[index-1]);
+			wkn = w[index-1] + dt * (*dw)(result.getValue(0,index-1),ykn1,result.getValue(2,index-1),w[index-1],x[index-1]);
 			// wkn = w[index-1] + dt * (*dw)(result.getValue(0,index),ykn,result.getValue(2,index-1),w[index-1],x[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
@@ -117,7 +117,7 @@ Result Euler::backward(double error){
 		double xkn = x[index-1];
 		do{
 			ykn1 = result.getValue(2,index-1) + dt * xkn;
-			xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1), ykn, w[index-1], x[index-1]);
+			xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1), ykn1, w[index-1], x[index-1]);
 			//xkn = x[index-1] + dt * (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
 			// xkn = x[index-1] + dt * (*dx)(result.getValue(1,index),result.getValue(2,index-1),w[index],x[index-1]);
 			dif = fabs(ykn1 - ykn);
@@ -171,7 +171,7 @@ Result Euler::eulerModify(double error){
 		double dif;
 		do{
 			ykn1 = result.getValue(0,index-1) + (dt/2) * (zkn + z[index-1]);
-			zkn = z[index-1] + (dt/2) * ((*dz)(ykn,result.getValue(1,index-1)) + derivadasDeZ[index-1]);
+			zkn = z[index-1] + (dt/2) * ((*dz)(ykn1,result.getValue(1,index-1)) + derivadasDeZ[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
 		}while(dif > error);
@@ -183,7 +183,7 @@ Result Euler::eulerModify(double error){
 		derivadasDeW[index-1] = (*dw)(result.getValue(0,index-1),result.getValue(1,index-1),result.getValue(2,index-1),w[index-1],x[index-1]);
 		do{
 			ykn1 = result.getValue(1,index-1) + (dt/2) * (wkn + w[index-1]);
-			wkn = w[index-1] + (dt/2) * ((*dw)(result.getValue(0,index-1), ykn, result.getValue(2,index-1), w[index-1],x[index-1]) + derivadasDeW[index-1]);
+			wkn = w[index-1] + (dt/2) * ((*dw)(result.getValue(0,index-1), ykn1, result.getValue(2,index-1), w[index-1],x[index-1]) + derivadasDeW[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
 		}while(dif > error);
@@ -195,7 +195,7 @@ Result Euler::eulerModify(double error){
 		derivadasDeX[index - 1] = (*dx)(result.getValue(1,index-1),result.getValue(2,index-1),w[index-1], x[index-1]);
 		do{
 			ykn1 = result.getValue(2,index-1) + (dt/2) * (xkn + x[index-1]);
-			xkn = x[index-1] + (dt/2) * ((*dx)(result.getValue(1,index-1), ykn, w[index-1], x[index-1]) + derivadasDeX[index-1]);
+			xkn = x[index-1] + (dt/2) * ((*dx)(result.getValue(1,index-1), ykn1, w[index-1], x[index-1]) + derivadasDeX[index-1]);
 			dif = fabs(ykn1 - ykn);
 			ykn = ykn1;
 		}while(dif > error);

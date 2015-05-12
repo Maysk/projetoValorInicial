@@ -31,6 +31,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="lib/Euler.h" />
+		<Unit filename="lib/Result.h" />
+		<Unit filename="lib/imports.h" />
+		<Unit filename="src/Euler.cpp" />
+		<Unit filename="src/Result.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
