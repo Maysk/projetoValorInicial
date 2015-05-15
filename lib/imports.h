@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cmath>
 #include <ctime>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
 #include "Result.h"
 #include "Euler.h"
 using namespace std;

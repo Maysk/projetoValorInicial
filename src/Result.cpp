@@ -15,7 +15,7 @@ Result::~Result(){
 double Result::getValue(int var,int position){
 	if(position >= 0 && position < length && var >= 0 && var < 3)
 		return values[var][position];
-	return -999999;
+	return 0;
 }
 double Result::getTime(){
 	return time;
