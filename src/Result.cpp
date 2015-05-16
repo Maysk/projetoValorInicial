@@ -7,7 +7,7 @@ Result::Result(int length){
 	this->values[2] = new double[length];
 	this->time = 0;
 	this->deltaT = 0;
-	this->iterations = 0;
+	this->iterations = length-1;
 }
 Result::~Result(){
 	delete values;

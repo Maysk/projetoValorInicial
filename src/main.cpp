@@ -19,7 +19,8 @@
 	double iteration = 0;
 	GLfloat Y1 = 0,Y2 = 0,Y3 = 0;
 	Result* result;
-	double rate = 3;
+	double rate = pow(dt,-1) / 50; //Dura 17 segundos
+	// double rate = pow(dt,-1) / 20; //Dura 7 segundos, mas fica agradável
 
 // Função callback chamada para fazer o desenho
 void Desenha(void)
@@ -116,9 +117,11 @@ void Timer(int value)
     Y1 = (GLfloat) result->getValue(0,iteration);
     Y2 = (GLfloat) result->getValue(1,iteration);
     Y3 = (GLfloat) result->getValue(2,iteration);
+    // iteration++;//deveria ser isso
     iteration+=rate;
     // Redesenha o quadrado com as novas coordenadas 
     glutPostRedisplay();
+    // glutTimerFunc(rate,Timer, 1);//deveria ser isso
     glutTimerFunc(1,Timer, 1);
 }
 
@@ -169,8 +172,9 @@ int main(int argc, char **argv){
 	result2.showFinal();
 	cout << "Modified:\n";
 	result3.showFinal();
-	result = &result3;
-
+	result = &result1;
+	// cout << (result->getLength()) << endl;
+	// rate = floor((result->getIterations() / 1000) * (20/(result->getIterations()/1000))); // deveria ser isso
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(800,600);
@@ -178,6 +182,7 @@ int main(int argc, char **argv){
     glutCreateWindow("Valor Inicial");
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
+    // glutTimerFunc(rate, Timer, 1);//deveria ser isso
     glutTimerFunc(1, Timer, 1);
     Inicializa();
     glutMainLoop();
