@@ -42,13 +42,7 @@ void Desenha(void)
                glVertex2i(M1x0 + sizeM + Y1,M1y0);
      glEnd();
 
-     //Desenha K1
-	glColor3f(1.0f, 1.0f, 1.0f);     
-	glBegin(GL_LINES);
-		glVertex2i(M1x0 + sizeM + Y1,M1y0);
-        glVertex2i(M1x0 + sizeM + sizeK + Y1,M1y0); 
-	glEnd();
-	//Desenha B1
+	//Desenha K1
 	glColor3f(1.0f, 0.0f, 1.0f);     
 	glBegin(GL_LINES);
 		glVertex2i(M1x0 + sizeM + Y1,M1y0 + sizeM * 0.5);
@@ -67,10 +61,16 @@ void Desenha(void)
      glEnd();
 
      //Desenha K2
-     glColor3f(1.0f, 0.0f, 1.0f);     
+    glColor3f(1.0f, 0.0f, 1.0f);     
 	glBegin(GL_LINES);
 		glVertex2i(M2x0 + sizeM + Y2,M2y0 + sizeM * 0.5);
         glVertex2i(M2x0 + sizeM + sizeK + Y2,M2y0 + sizeM * 0.5); 
+	glEnd();
+     //Desenha B1
+	glColor3f(1.0f, 1.0f, 1.0f);     
+	glBegin(GL_LINES);
+		glVertex2i(M2x0 + sizeM + Y2,M2y0);
+        glVertex2i(M2x0 + sizeM + sizeK + Y2,M2y0); 
 	glEnd();
 
 
@@ -85,14 +85,14 @@ void Desenha(void)
                glVertex2i(M3x0 + sizeM + Y3,M3y0 + sizeM);               
      glEnd();
 
-	//Desenha K3
-    glColor3f(1.0f, 1.0f, 1.0f);     
-	glBegin(GL_LINES);
-		glVertex2i(M3x0 + sizeM + Y3,M3y0);
-        glVertex2i(M3x0 + sizeM + sizeK,M3y0); 
-	glEnd();
-	
 	//Desenha B2
+ //    glColor3f(1.0f, 1.0f, 1.0f);     
+	// glBegin(GL_LINES);
+	// 	glVertex2i(M3x0 + sizeM + Y3,M3y0);
+ //        glVertex2i(M3x0 + sizeM + sizeK,M3y0); 
+	// glEnd();
+	
+	//Desenha K3
 	glColor3f(1.0f, 0.0f, 1.0f);     
 	glBegin(GL_LINES);
 		glVertex2i(M3x0 + sizeM +Y3,M3y0 + sizeM * 0.5);
@@ -190,11 +190,11 @@ int main(int argc, char **argv){
     return 0;
 }
 double dz(double y1,double y2){
-	return 1 - y1 + y2;
+	return (F1 - K1 * y1 + K1 * y2) / M1;
 }
 double dw(double y1,double y2, double y3,double w,double x){
-	return	y1 -0.25 * w - 2 * y2 + 0.25 * x + y3;
+	return	(K1 * y1 -B1 * w - (K1 + K2) * y2 + B1 * x + K2 * y3) / M2;
 }
 double dx(double y2,double y3,double w,double x){
-	return	0.5 + y2 + 0.25 * w - 0.25 * x - 2 *y3;
+	return	(F3 + K2 * y2 + B1 * w - B1 * x - (K2 + K3) *y3) / M3;
 }
