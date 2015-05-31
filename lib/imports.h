@@ -4,8 +4,10 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/glu.h>
+#include "Temporizador.h"
 #include "Result.h"
 #include "Euler.h"
+#include "RungeKutta.h"
 
 #define K1 2
 #define K2 2
