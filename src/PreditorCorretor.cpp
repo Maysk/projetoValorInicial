@@ -19,6 +19,7 @@ PreditorCorretor::PreditorCorretor(double (*dz)(double,double),double (*dw)(doub
 Result PreditorCorretor::pcTerceiraOrdem(int metodoUsado){
 	Result aux;
 	Result result(steps+1);
+    result.setDeltaT(dt);
 
 	Temporizador temporizador;
     temporizador.iniciarTemporizador();

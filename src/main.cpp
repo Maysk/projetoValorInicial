@@ -203,7 +203,7 @@ int main(int argc, char **argv){
 	result3.showFinal();
 	result = &result1;
 	// cout << (result->getLength()) << endl;
-	// rate = floor((result->getIterations() / 1000) * (20/(result->getIterations()/1000))); // deveria ser isso
+	rate = floor((result->getIterations() / 1000) * (20/(result->getIterations()/1000))); // deveria ser isso
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(800,600);
