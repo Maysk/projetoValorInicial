@@ -32,6 +32,9 @@ Result RungeKutta::rkSegundaOrdem(){
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
+    result.setDerivate(0,0,z[0]);
+    result.setDerivate(1,0,w[0]);
+    result.setDerivate(2,0,x[0]);
 
 	int index = 1;
 
@@ -90,7 +93,9 @@ Result RungeKutta::rkSegundaOrdem(){
         result.setValue(2,index,resultado);
 
 
-
+        result.setDerivate(0,index,z[index]);
+        result.setDerivate(1,index,w[index]);
+        result.setDerivate(2,index,x[index]);
 		index++;
 	}
 
@@ -115,6 +120,9 @@ Result RungeKutta::rkTerceiraOrdem(){
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
+    result.setDerivate(0,0,z[0]);
+    result.setDerivate(1,0,w[0]);
+    result.setDerivate(2,0,x[0]);
 
     double k1 = 0;
     double k2 = 0;
@@ -182,6 +190,9 @@ Result RungeKutta::rkTerceiraOrdem(){
         resultado = valorDeY3DaRodadaAnterior + (k1+4*k2+k3)/6;
         result.setValue(2,index,resultado);
 
+        result.setDerivate(0,index,z[index]);
+        result.setDerivate(1,index,w[index]);
+        result.setDerivate(2,index,x[index]);
 
     }
 
@@ -208,6 +219,9 @@ Result RungeKutta::rkQuartaOrdem(){
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
+    result.setDerivate(0,0,z[0]);
+    result.setDerivate(1,0,w[0]);
+    result.setDerivate(2,0,x[0]);
 
     double k1 = 0;
     double k2 = 0;
@@ -286,7 +300,9 @@ Result RungeKutta::rkQuartaOrdem(){
 
         resultado = valorDeY3DaRodadaAnterior + (k1 + 3*k2 + 3*k3 + k4)/8;
         result.setValue(2,index,resultado);
-
+        result.setDerivate(0,index,z[index]);
+        result.setDerivate(1,index,w[index]);
+        result.setDerivate(2,index,x[index]);
     }
 
     result.setTime(temporizador.getTimeInSec());

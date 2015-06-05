@@ -14,95 +14,95 @@
 	GLfloat M2y0 = M1y0;
 	GLfloat M3x0 = M2x0+sizeK+sizeM;
 	GLfloat M3y0 = M2y0;
-	double dt = 0.01;//secs
+	double dt = 0.001;//secs
 	double t = 20;//secs
 	double iteration = 0;
 	GLfloat Y1 = 0,Y2 = 0,Y3 = 0;
 	Result* result;
-	double rate = pow(dt,-1) / 50; //Dura 17 segundos
-	// double rate = pow(dt,-1) / 20; //Dura 7 segundos, mas fica agradável
+	// double rate = pow(dt,-1) / 50; //Dura 17 segundos
+	double rate = pow(dt,-1) / 20; //Dura 7 segundos, mas fica agradável
 
 // Função callback chamada para fazer o desenho
 void Desenha(void)
 {
      glMatrixMode(GL_MODELVIEW);
      glLoadIdentity();
-                   
+
      glClear(GL_COLOR_BUFFER_BIT);
 
-  
+
      // Desenha M1
      glColor3f(1.0f, 0.0f, 0.0f);
      glBegin(GL_QUADS);
                glVertex2i(M1x0 + Y1,M1y0);
-               glVertex2i(M1x0 + Y1,M1y0 + sizeM); 
+               glVertex2i(M1x0 + Y1,M1y0 + sizeM);
                // Especifica que a cor corrente é azul
-               
-               glVertex2i(M1x0 + sizeM + Y1,M1y0 + sizeM);               
+
+               glVertex2i(M1x0 + sizeM + Y1,M1y0 + sizeM);
                glVertex2i(M1x0 + sizeM + Y1,M1y0);
      glEnd();
 
 	//Desenha K1
-	glColor3f(1.0f, 0.0f, 1.0f);     
+	glColor3f(1.0f, 0.0f, 1.0f);
 	glBegin(GL_LINES);
 		glVertex2i(M1x0 + sizeM + Y1,M1y0 + sizeM * 0.5);
-        glVertex2i(M1x0 + sizeM + sizeK + Y1,M1y0 + sizeM * 0.5); 
+        glVertex2i(M1x0 + sizeM + sizeK + Y1,M1y0 + sizeM * 0.5);
 	glEnd();
 
      // Desenha M2
      glColor3f(0.0f, 0.0f, 1.0f);
      glBegin(GL_QUADS);
-               glVertex2i(M2x0 + Y2,M2y0 + sizeM); 
+               glVertex2i(M2x0 + Y2,M2y0 + sizeM);
                glVertex2i(M2x0 + Y2,M2y0);
                // Especifica que a cor corrente é azul
-               
+
                glVertex2i(M2x0 + sizeM + Y2,M2y0);
-               glVertex2i(M2x0 + sizeM + Y2,M2y0 + sizeM);               
+               glVertex2i(M2x0 + sizeM + Y2,M2y0 + sizeM);
      glEnd();
 
      //Desenha K2
-    glColor3f(1.0f, 0.0f, 1.0f);     
+    glColor3f(1.0f, 0.0f, 1.0f);
 	glBegin(GL_LINES);
 		glVertex2i(M2x0 + sizeM + Y2,M2y0 + sizeM * 0.5);
-        glVertex2i(M2x0 + sizeM + sizeK + Y2,M2y0 + sizeM * 0.5); 
+        glVertex2i(M2x0 + sizeM + sizeK + Y2,M2y0 + sizeM * 0.5);
 	glEnd();
      //Desenha B1
-	glColor3f(1.0f, 1.0f, 1.0f);     
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_LINES);
 		glVertex2i(M2x0 + sizeM + Y2,M2y0);
-        glVertex2i(M2x0 + sizeM + sizeK + Y2,M2y0); 
+        glVertex2i(M2x0 + sizeM + sizeK + Y2,M2y0);
 	glEnd();
 
 
      // Desenha M3
      glColor3f(0.0f, 1.0f, 0.0f);
      glBegin(GL_QUADS);
-               glVertex2i(M3x0 + Y3,M3y0 + sizeM); 
+               glVertex2i(M3x0 + Y3,M3y0 + sizeM);
                glVertex2i(M3x0 + Y3,M3y0);
                // Especifica que a cor corrente é azul
-               
+
                glVertex2i(M3x0 + sizeM + Y3,M3y0);
-               glVertex2i(M3x0 + sizeM + Y3,M3y0 + sizeM);               
+               glVertex2i(M3x0 + sizeM + Y3,M3y0 + sizeM);
      glEnd();
 
 	//Desenha B2
- //    glColor3f(1.0f, 1.0f, 1.0f);     
+ //    glColor3f(1.0f, 1.0f, 1.0f);
 	// glBegin(GL_LINES);
 	// 	glVertex2i(M3x0 + sizeM + Y3,M3y0);
- //        glVertex2i(M3x0 + sizeM + sizeK,M3y0); 
+ //        glVertex2i(M3x0 + sizeM + sizeK,M3y0);
 	// glEnd();
-	
+
 	//Desenha K3
-	glColor3f(1.0f, 0.0f, 1.0f);     
+	glColor3f(1.0f, 0.0f, 1.0f);
 	glBegin(GL_LINES);
 		glVertex2i(M3x0 + sizeM +Y3,M3y0 + sizeM * 0.5);
-        glVertex2i(M3x0 + sizeM + sizeK,M3y0 + sizeM * 0.5); 
+        glVertex2i(M3x0 + sizeM + sizeK,M3y0 + sizeM * 0.5);
 	glEnd();
 
-	glColor3f(1.0f, 1.0f, 1.0f);     
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_LINES);
 		glVertex2i(M3x0 + sizeM + sizeK,M3y0 - sizeM);
-        glVertex2i(M3x0 + sizeM + sizeK,M3y0 + 2 * sizeM); 
+        glVertex2i(M3x0 + sizeM + sizeK,M3y0 + 2 * sizeM);
 	glEnd();
      // Executa os comandos OpenGL
      glutSwapBuffers();
@@ -111,7 +111,7 @@ void Desenha(void)
 
 void Timer(int value)
 {
-    
+
 
     // Move o quadrado
     Y1 = (GLfloat) result->getValue(0,iteration);
@@ -119,25 +119,25 @@ void Timer(int value)
     Y3 = (GLfloat) result->getValue(2,iteration);
     // iteration++;//deveria ser isso
     iteration+=rate;
-    // Redesenha o quadrado com as novas coordenadas 
+    // Redesenha o quadrado com as novas coordenadas
     glutPostRedisplay();
-    // glutTimerFunc(rate,Timer, 1);//deveria ser isso
-    glutTimerFunc(1,Timer, 1);
+    glutTimerFunc(rate,Timer, 1);//deveria ser isso
+    // glutTimerFunc(1,Timer, 1);
 }
 
 // Inicializa parâmetros de rendering
 void Inicializa (void)
-{   
+{
     // Define a cor de fundo da janela de visualização como preta
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-// Função callback chamada quando o tamanho da janela é alterado 
+// Função callback chamada quando o tamanho da janela é alterado
 void AlteraTamanhoJanela(GLsizei w, GLsizei h)
 {
      // Evita a divisao por zero
      if(h == 0) h = 1;
-                           
+
      // Especifica as dimensões da Viewport
      glViewport(0, 0, w, h);
 
@@ -145,23 +145,52 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
      glMatrixMode(GL_PROJECTION);
      glLoadIdentity();
 
-     // Estabelece a janela de seleção (left, right, bottom, top)     
+     // Estabelece a janela de seleção (left, right, bottom, top)
      if (w <= h)  {
 		windowHeight = 250.0f*h/w;
 		windowWidth = 250.0f;
      }
-     else  { 
+     else  {
 		windowWidth = 250.0f*w/h;
 		windowHeight = 250.0f;
      }
-     
+
      gluOrtho2D(0.0f, windowWidth, 0.0f, windowHeight);
 }
 
 
 int main(int argc, char **argv){
-	
-	
+
+    PreditorCorretor pc(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result teste = pc.pcTerceiraOrdem(FORWARD_EULER);
+    cout << "PreditorCorretor FORWARD_EULER:\n";
+    teste.showFinal();
+
+    PreditorCorretor pc2(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result teste2 = pc2.pcTerceiraOrdem(BACKWARD_EULER);
+    cout << "PreditorCorretor BACKWARD_EULER:\n";
+    teste2.showFinal();
+
+    PreditorCorretor pc3(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result teste3 = pc3.pcTerceiraOrdem(EULER_MODIFY);
+    cout << "PreditorCorretor EULER_MODIFY:\n";
+    teste3.showFinal();
+
+    PreditorCorretor pc4(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result teste4 = pc4.pcTerceiraOrdem(RUNGEKUTTA_2ORDEM);
+    cout << "PreditorCorretor RUNGEKUTTA_2ORDEM:\n";
+    teste4.showFinal();
+
+    PreditorCorretor pc5(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result teste5 = pc5.pcTerceiraOrdem(RUNGEKUTTA_3ORDEM);
+    cout << "PreditorCorretor RUNGEKUTTA_3ORDEM:\n";
+    teste5.showFinal();
+    
+    PreditorCorretor pc6(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result teste6 = pc6.pcTerceiraOrdem(RUNGEKUTTA_4ORDEM);
+    cout << "PreditorCorretor RUNGEKUTTA_4ORDEM:\n";
+    teste6.showFinal();
+
 	Euler euler(dz,dw,dx,0,0,0,0,0,0,t,dt);
 	Result result1 = euler.backward(0.1);
 	Result result2 = euler.forward();
@@ -182,8 +211,8 @@ int main(int argc, char **argv){
     glutCreateWindow("Valor Inicial");
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
-    // glutTimerFunc(rate, Timer, 1);//deveria ser isso
-    glutTimerFunc(1, Timer, 1);
+    glutTimerFunc(rate, Timer, 1);//deveria ser isso
+    // glutTimerFunc(1, Timer, 1);
     Inicializa();
     glutMainLoop();
 

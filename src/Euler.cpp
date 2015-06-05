@@ -34,6 +34,11 @@ Result Euler::forward(){
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
+
+	result.setDerivate(0,0,z[0]);
+    result.setDerivate(1,0,w[0]);
+    result.setDerivate(2,0,x[0]);
+
 	int index = 1;
 	double currentStepTime = 0 + dt;
 	while(index <= steps){
@@ -51,8 +56,14 @@ Result Euler::forward(){
 
 		currentStepTime+=dt;
 		result.setIterations(index);
+
+		result.setDerivate(0,index,z[index]);
+        result.setDerivate(1,index,w[index]);
+        result.setDerivate(2,index,x[index]);
+
 		index++;
 	}
+
 	end = clock();
 	executionTime = (end - start);
 	executionTimeInSec = executionTime/(long double) CLOCKS_PER_SEC;
@@ -81,6 +92,9 @@ Result Euler::backward(double error){
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
+	result.setDerivate(0,0,z[0]);
+    result.setDerivate(1,0,w[0]);
+    result.setDerivate(2,0,x[0]);
 
 	int index = 1;
 
@@ -125,6 +139,10 @@ Result Euler::backward(double error){
 		}while(dif > error);
 		x[index] = xkn;
 		result.setValue(2,index,ykn);
+
+		result.setDerivate(0,index,z[index]);
+        result.setDerivate(1,index,w[index]);
+        result.setDerivate(2,index,x[index]);
 		index++;
 	}
 	end = clock();
@@ -161,6 +179,9 @@ Result Euler::eulerModify(double error){
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
+	result.setDerivate(0,0,z[0]);
+    result.setDerivate(1,0,w[0]);
+    result.setDerivate(2,0,x[0]);
 
 	while(index <= steps){
 		double ykn = result.getValue(0,index-1);
@@ -202,7 +223,10 @@ Result Euler::eulerModify(double error){
 		x[index] = xkn;
 		result.setValue(2,index,ykn);
 
-
+		
+		result.setDerivate(0,index,z[index]);
+        result.setDerivate(1,index,w[index]);
+        result.setDerivate(2,index,x[index]);
 		index++;
 	}
 	end = clock();
