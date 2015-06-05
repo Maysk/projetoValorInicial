@@ -110,6 +110,7 @@ Result RungeKutta::rkTerceiraOrdem(){
     temporizador.iniciarTemporizador();
 
     Result result(steps+1);
+    result.setDeltaT(dt);
     result.setValue(0,0,y1);
 	result.setValue(1,0,y2);
 	result.setValue(2,0,y3);

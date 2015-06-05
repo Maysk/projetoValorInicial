@@ -97,17 +97,17 @@ Result PreditorCorretor::pcTerceiraOrdem(int metodoUsado){
         derivadaPreditorW = (*dw)(preditorY1, preditorY2, preditorY3, preditorW, preditorX);
         derivadaPreditorX = (*dx)(preditorY2, preditorY3, preditorW, preditorX);
 
-        z[i] = z[i - 1] + dt * (9 * derivadaPreditorZ + 19 * derivadaZ[i - 1] - 5 * derivadaZ[i - 2] + derivadaZ[i - 3]) / 24;
-        w[i] = w[i - 1] + dt * (9 * derivadaPreditorW + 19 * derivadaW[i - 1] - 5 * derivadaW[i - 2] + derivadaW[i - 3]) / 24;
-        x[i] = x[i - 1] + dt * (9 * derivadaPreditorX + 19 * derivadaX[i - 1] - 5 * derivadaX[i - 2] + derivadaX[i - 3]) / 24;
+        z[i] = z[i - 1] + dt * (5 * derivadaPreditorZ + 8 * derivadaZ[i - 1] - derivadaZ[i - 2]) /12;
+        w[i] = w[i - 1] + dt * (5 * derivadaPreditorW + 8 * derivadaW[i - 1] - derivadaW[i - 2]) /12;
+        x[i] = x[i - 1] + dt * (5 * derivadaPreditorX + 8 * derivadaX[i - 1] - derivadaX[i - 2]) /12;
 
         derivadaPreditorY1 = z[i];
         derivadaPreditorY2 = w[i];
         derivadaPreditorY3 = x[i];
 
-        result.setValue(0, i, result.getValue(0,i - 1) + dt * (9 * derivadaPreditorY1 + 19 * z[i - 1] - 5 * z[i - 2] + z[i - 3]) / 24);
-        result.setValue(1, i, result.getValue(1,i - 1) + dt * (9 * derivadaPreditorY2 + 19 * w[i - 1] - 5 * w[i - 2] + w[i - 3]) / 24);
-        result.setValue(2, i, result.getValue(2,i - 1) + dt * (9 * derivadaPreditorY3 + 19 * x[i - 1] - 5 * x[i - 2] + x[i - 3]) / 24);
+        result.setValue(0, i, result.getValue(0,i - 1) + dt * (5 * derivadaPreditorY1 + 8 * z[i - 1] - z[i - 2]) / 12);
+        result.setValue(1, i, result.getValue(1,i - 1) + dt * (5 * derivadaPreditorY2 + 8 * w[i - 1] - w[i - 2]) / 12);
+        result.setValue(2, i, result.getValue(2,i - 1) + dt * (5 * derivadaPreditorY3 + 8 * x[i - 1] - x[i - 2]) / 12);
 
         derivadaZ[i] = (*dz)(result.getValue(0,i), result.getValue(1,i));
         derivadaW[i] = (*dw)(result.getValue(0,i), result.getValue(1,i), result.getValue(2,i), w[i], x[i]);

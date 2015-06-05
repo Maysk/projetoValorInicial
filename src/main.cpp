@@ -161,47 +161,62 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
 
 int main(int argc, char **argv){
 
-    PreditorCorretor pc(dz,dw,dx,0,0,0,0,0,0,t,dt);
-    Result teste = pc.pcTerceiraOrdem(FORWARD_EULER);
-    cout << "PreditorCorretor FORWARD_EULER:\n";
-    teste.showFinal();
-
-    PreditorCorretor pc2(dz,dw,dx,0,0,0,0,0,0,t,dt);
-    Result teste2 = pc2.pcTerceiraOrdem(BACKWARD_EULER);
-    cout << "PreditorCorretor BACKWARD_EULER:\n";
-    teste2.showFinal();
-
-    PreditorCorretor pc3(dz,dw,dx,0,0,0,0,0,0,t,dt);
-    Result teste3 = pc3.pcTerceiraOrdem(EULER_MODIFY);
-    cout << "PreditorCorretor EULER_MODIFY:\n";
-    teste3.showFinal();
-
-    PreditorCorretor pc4(dz,dw,dx,0,0,0,0,0,0,t,dt);
-    Result teste4 = pc4.pcTerceiraOrdem(RUNGEKUTTA_2ORDEM);
-    cout << "PreditorCorretor RUNGEKUTTA_2ORDEM:\n";
-    teste4.showFinal();
-
-    PreditorCorretor pc5(dz,dw,dx,0,0,0,0,0,0,t,dt);
-    Result teste5 = pc5.pcTerceiraOrdem(RUNGEKUTTA_3ORDEM);
-    cout << "PreditorCorretor RUNGEKUTTA_3ORDEM:\n";
-    teste5.showFinal();
-    
-    PreditorCorretor pc6(dz,dw,dx,0,0,0,0,0,0,t,dt);
-    Result teste6 = pc6.pcTerceiraOrdem(RUNGEKUTTA_4ORDEM);
-    cout << "PreditorCorretor RUNGEKUTTA_4ORDEM:\n";
-    teste6.showFinal();
-
+	cout <<"---------------------------------Euler---------------------------------\n";
 	Euler euler(dz,dw,dx,0,0,0,0,0,0,t,dt);
-	Result result1 = euler.backward(0.1);
-	Result result2 = euler.forward();
-	Result result3 = euler.eulerModify(0.1);
+	Result eulerResult1 = euler.backward(0.1);
+	Result eulerResult2 = euler.forward();
+	Result eulerResult3 = euler.eulerModify(0.1);
 	cout << "Backward:\n";
-	result1.showFinal();
+	eulerResult1.showFinal();
 	cout << "Forward:\n";
-	result2.showFinal();
+	eulerResult2.showFinal();
 	cout << "Modified:\n";
-	result3.showFinal();
-	result = &result1;
+	eulerResult3.showFinal();
+	cout <<"-----------------------------------------------------------------------\n";
+
+	cout <<"---------------------------------Runge-Kutta---------------------------------\n";
+	RungeKutta rugeKutta(dz,dw,dx,0,0,0,0,0,0,t,dt);
+	Result rugeKuttaResult1 = rugeKutta.rkSegundaOrdem();
+	Result rugeKuttaResult2 = rugeKutta.rkTerceiraOrdem();
+	Result rugeKuttaResult3 = rugeKutta.rkQuartaOrdem();
+	cout << "SegundaOrdem:\n";
+	rugeKuttaResult1.showFinal();
+	cout << "TerceiraOrdem:\n";
+	rugeKuttaResult2.showFinal();
+	cout << "QuartaOrdem:\n";
+	rugeKuttaResult3.showFinal();
+	cout <<"------------------------------------------------------------------------------\n";
+
+
+	cout <<"---------------------------------Preditor 3ª Ordem---------------------------------\n";
+    PreditorCorretor pc(dz,dw,dx,0,0,0,0,0,0,t,dt);
+    Result preditorCorretorResult = pc.pcTerceiraOrdem(FORWARD_EULER);
+    cout << "FORWARD_EULER:\n";
+    preditorCorretorResult.showFinal();
+
+    Result preditorCorretorResult2 = pc.pcTerceiraOrdem(BACKWARD_EULER);
+    cout << "BACKWARD_EULER:\n";
+    preditorCorretorResult2.showFinal();
+
+    Result preditorCorretorResult3 = pc.pcTerceiraOrdem(EULER_MODIFY);
+    cout << "EULER_MODIFY:\n";
+    preditorCorretorResult3.showFinal();
+
+    Result preditorCorretorResult4 = pc.pcTerceiraOrdem(RUNGEKUTTA_2ORDEM);
+    cout << "RUNGEKUTTA_2ORDEM:\n";
+    preditorCorretorResult4.showFinal();
+
+    Result preditorCorretorResult5 = pc.pcTerceiraOrdem(RUNGEKUTTA_3ORDEM);
+    cout << "RUNGEKUTTA_3ORDEM:\n";
+    preditorCorretorResult5.showFinal();
+    
+    Result preditorCorretorResult6 = pc.pcTerceiraOrdem(RUNGEKUTTA_4ORDEM);
+    cout << "RUNGEKUTTA_4ORDEM:\n";
+    preditorCorretorResult6.showFinal();
+    cout <<"----------------------------------------------------------------------------------\n";
+
+	result = &eulerResult1;
+
 	// cout << (result->getLength()) << endl;
 	rate = floor((result->getIterations() / 1000) * (20/(result->getIterations()/1000))); // deveria ser isso
 	glutInit(&argc, argv);
