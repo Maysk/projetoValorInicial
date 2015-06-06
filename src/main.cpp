@@ -160,8 +160,9 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
 
 
 int main(int argc, char **argv){
-
-	cout <<"---------------------------------Euler---------------------------------\n";
+	cout << "Entre com o dt:\n";
+	cin >> dt;
+	cout <<"\n---------------------------------Euler---------------------------------\n";
 	Euler euler(dz,dw,dx,0,0,0,0,0,0,t,dt);
 	Result eulerResult1 = euler.backward(0.1);
 	Result eulerResult2 = euler.forward();
@@ -188,8 +189,8 @@ int main(int argc, char **argv){
 	cout <<"------------------------------------------------------------------------------\n";
 
 
-	cout <<"---------------------------------Preditor 3ª Ordem---------------------------------\n";
     PreditorCorretor pc(dz,dw,dx,0,0,0,0,0,0,t,dt);
+	cout <<"---------------------------------Preditor 3ª Ordem---------------------------------\n";
     Result preditorCorretorResult = pc.pcTerceiraOrdem(FORWARD_EULER);
     cout << "FORWARD_EULER:\n";
     preditorCorretorResult.showFinal();
@@ -214,11 +215,196 @@ int main(int argc, char **argv){
     cout << "RUNGEKUTTA_4ORDEM:\n";
     preditorCorretorResult6.showFinal();
     cout <<"----------------------------------------------------------------------------------\n";
+    cout <<"---------------------------------Preditor 4ª Ordem---------------------------------\n";
+    Result preditorCorretorResult7 = pc.pcQuartaOrdem(FORWARD_EULER);
+    cout << "FORWARD_EULER:\n";
+    preditorCorretorResult7.showFinal();
 
-	result = &eulerResult1;
+    Result preditorCorretorResult8 = pc.pcQuartaOrdem(BACKWARD_EULER);
+    cout << "BACKWARD_EULER:\n";
+    preditorCorretorResult8.showFinal();
 
-	// cout << (result->getLength()) << endl;
-	rate = floor((result->getIterations() / 1000) * (20/(result->getIterations()/1000))); // deveria ser isso
+    Result preditorCorretorResult9 = pc.pcQuartaOrdem(EULER_MODIFY);
+    cout << "EULER_MODIFY:\n";
+    preditorCorretorResult9.showFinal();
+
+    Result preditorCorretorResult10 = pc.pcQuartaOrdem(RUNGEKUTTA_2ORDEM);
+    cout << "RUNGEKUTTA_2ORDEM:\n";
+    preditorCorretorResult10.showFinal();
+
+    Result preditorCorretorResult11 = pc.pcQuartaOrdem(RUNGEKUTTA_3ORDEM);
+    cout << "RUNGEKUTTA_3ORDEM:\n";
+    preditorCorretorResult11.showFinal();
+    
+    Result preditorCorretorResult12 = pc.pcQuartaOrdem(RUNGEKUTTA_4ORDEM);
+    cout << "RUNGEKUTTA_4ORDEM:\n";
+    preditorCorretorResult12.showFinal();
+    cout <<"----------------------------------------------------------------------------------\n";
+    int op;
+    do{
+    cout << "----------------------------------------Menu----------------------------------------\n";
+	cout << "(1)Mostrar resultado completo para método\n";
+	cout << "(2)Mostrar animeção\n";
+	cout << "(3)Sair\n";
+	cin >> op;
+	cout << "-------------------------------------------------------------------------------------\n";
+	if(op == 3)
+		return 0;
+	if(op == 1){
+		cout << "Escolha o método para exibição:\n";
+    	cout << "(1)Euler-Backward:\n";
+		cout << "(2)Euler-Forward:\n";
+		cout << "(3)Euler-Modified:\n";
+		cout << "(4)Runge-Kutta-SegundaOrdem:\n";
+		cout << "(5)Runge-Kutta-TerceiraOrdem:\n";
+		cout << "(6)Runge-Kutta-QuartaOrdem:\n";
+		cout << "(7)Preditor-Corretor-3Ordem-FORWARD_EULER:\n";
+		cout << "(8)Preditor-Corretor-3Ordem-BACKWARD_EULER:\n";
+		cout << "(9)Preditor-Corretor-3Ordem-EULER_MODIFY:\n";
+		cout << "(10)Preditor-Corretor-3Ordem-RUNGEKUTTA_2ORDEM:\n";
+		cout << "(11)Preditor-Corretor-3Ordem-RUNGEKUTTA_3ORDEM:\n";
+		cout << "(12)Preditor-Corretor-3Ordem-RUNGEKUTTA_4ORDEM:\n";
+		cout << "(13)Preditor-Corretor-4Ordem-BACKWARD_EULER:\n";
+		cout << "(14)Preditor-Corretor-4Ordem-Preditor-Corretor-EULER_MODIFY:\n";
+		cout << "(15)Preditor-Corretor-4Ordem-FORWARD_EULER:\n";
+		cout << "(16)Preditor-Corretor-4Ordem-RUNGEKUTTA_2ORDEM:\n";
+		cout << "(17)Preditor-Corretor-4Ordem-RUNGEKUTTA_3ORDEM:\n";
+		cout << "(18)Preditor-Corretor-4Ordem-RUNGEKUTTA_4ORDEM:\n";
+		cin >> op;
+		if(op ==  1){
+			eulerResult1.show();
+		}
+		if(op ==  2){
+			eulerResult2.show();
+		}
+		if(op ==  3){
+			eulerResult3.show();
+		}
+		if(op ==  4){
+			rugeKuttaResult1.show();
+		}
+		if(op ==  5){
+			rugeKuttaResult2.show();
+		}
+		if(op ==  6){
+			rugeKuttaResult2.show();
+		}
+		if(op ==  7){
+			preditorCorretorResult.show();
+		}
+		if(op ==  8){
+			preditorCorretorResult2.show();
+		}
+		if(op ==  9){
+			preditorCorretorResult3.show();
+		}
+		if(op ==  10){
+			preditorCorretorResult4.show();
+		}
+		if(op ==  11){
+			preditorCorretorResult5.show();
+		}
+		if(op ==  12){
+			preditorCorretorResult6.show();
+		}
+		if(op ==  13){
+			preditorCorretorResult7.show();
+		}
+		if(op ==  14){
+			preditorCorretorResult8.show();
+		}
+		if(op ==  15){
+			preditorCorretorResult9.show();
+		}
+		if(op ==  16){
+			preditorCorretorResult10.show();
+		}
+		if(op ==  17){
+			preditorCorretorResult11.show();
+		}
+		if(op ==  18){
+			preditorCorretorResult12.show();
+		}
+	}
+    }while(op != 2);
+
+    
+    cout << "Escolha o método da animação:\n";
+    cout << "(1)Euler-Backward:\n";
+	cout << "(2)Euler-Forward:\n";
+	cout << "(3)Euler-Modified:\n";
+	cout << "(4)Runge-Kutta-SegundaOrdem:\n";
+	cout << "(5)Runge-Kutta-TerceiraOrdem:\n";
+	cout << "(6)Runge-Kutta-QuartaOrdem:\n";
+	cout << "(7)Preditor-Corretor-3Ordem-FORWARD_EULER:\n";
+	cout << "(8)Preditor-Corretor-3Ordem-BACKWARD_EULER:\n";
+	cout << "(9)Preditor-Corretor-3Ordem-EULER_MODIFY:\n";
+	cout << "(10)Preditor-Corretor-3Ordem-RUNGEKUTTA_2ORDEM:\n";
+	cout << "(11)Preditor-Corretor-3Ordem-RUNGEKUTTA_3ORDEM:\n";
+	cout << "(12)Preditor-Corretor-3Ordem-RUNGEKUTTA_4ORDEM:\n";
+	cout << "(13)Preditor-Corretor-4Ordem-BACKWARD_EULER:\n";
+	cout << "(14)Preditor-Corretor-4Ordem-Preditor-Corretor-EULER_MODIFY:\n";
+	cout << "(15)Preditor-Corretor-4Ordem-FORWARD_EULER:\n";
+	cout << "(16)Preditor-Corretor-4Ordem-RUNGEKUTTA_2ORDEM:\n";
+	cout << "(17)Preditor-Corretor-4Ordem-RUNGEKUTTA_3ORDEM:\n";
+	cout << "(18)Preditor-Corretor-4Ordem-RUNGEKUTTA_4ORDEM:\n";
+	cin >> op;
+		if(op ==  1){
+			result = &eulerResult1;
+		}
+		if(op ==  2){
+			result = &eulerResult2;
+		}
+		if(op ==  3){
+			result = &eulerResult3;
+		}
+		if(op ==  4){
+			result = &rugeKuttaResult1;
+		}
+		if(op ==  5){
+			result = &rugeKuttaResult2;
+		}
+		if(op ==  6){
+			result = &rugeKuttaResult2;
+		}
+		if(op ==  7){
+			result = &preditorCorretorResult;
+		}
+		if(op ==  8){
+			result = &preditorCorretorResult2;
+		}
+		if(op ==  9){
+			result = &preditorCorretorResult3;
+		}
+		if(op ==  10){
+			result = &preditorCorretorResult4;
+		}
+		if(op ==  11){
+			result = &preditorCorretorResult5;
+		}
+		if(op ==  12){
+			result = &preditorCorretorResult6;
+		}
+		if(op ==  13){
+			result = &preditorCorretorResult7;
+		}
+		if(op ==  14){
+			result = &preditorCorretorResult8;
+		}
+		if(op ==  15){
+			result = &preditorCorretorResult9;
+		}
+		if(op ==  16){
+			result = &preditorCorretorResult10;
+		}
+		if(op ==  17){
+			result = &preditorCorretorResult11;
+		}
+		if(op ==  18){
+			result = &preditorCorretorResult12;
+		}
+
+	// rate = floor((result->getIterations() / 1000) * (20/(result->getIterations()/1000))); // deveria ser isso
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(800,600);
@@ -226,8 +412,8 @@ int main(int argc, char **argv){
     glutCreateWindow("Valor Inicial");
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
-    glutTimerFunc(rate, Timer, 1);//deveria ser isso
-    // glutTimerFunc(1, Timer, 1);
+    // glutTimerFunc(rate, Timer, 1);//deveria ser isso
+    glutTimerFunc(1, Timer, 1);
     Inicializa();
     glutMainLoop();
 

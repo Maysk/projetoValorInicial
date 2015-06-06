@@ -125,6 +125,7 @@ Result PreditorCorretor::pcTerceiraOrdem(int metodoUsado){
 Result PreditorCorretor::pcQuartaOrdem(int metodoUsado){
 	Result aux;
 	Result result(steps+1);
+    result.setDeltaT(dt);
 
 	Temporizador temporizador;
     temporizador.iniciarTemporizador();
