@@ -58,8 +58,8 @@ Result Euler::forward(){
 		result.setIterations(index);
 
 		result.setDerivate(0,index,z[index]);
-        result.setDerivate(1,index,w[index]);
-        result.setDerivate(2,index,x[index]);
+        	result.setDerivate(1,index,w[index]);
+        	result.setDerivate(2,index,x[index]);
 
 		index++;
 	}
@@ -93,8 +93,8 @@ Result Euler::backward(double error){
 	w[0] = dy2;
 	x[0] = dy3;
 	result.setDerivate(0,0,z[0]);
-    result.setDerivate(1,0,w[0]);
-    result.setDerivate(2,0,x[0]);
+    	result.setDerivate(1,0,w[0]);
+    	result.setDerivate(2,0,x[0]);
 
 	int index = 1;
 
@@ -141,8 +141,8 @@ Result Euler::backward(double error){
 		result.setValue(2,index,ykn);
 
 		result.setDerivate(0,index,z[index]);
-        result.setDerivate(1,index,w[index]);
-        result.setDerivate(2,index,x[index]);
+        	result.setDerivate(1,index,w[index]);
+        	result.setDerivate(2,index,x[index]);
 		index++;
 	}
 	end = clock();
@@ -225,8 +225,8 @@ Result Euler::eulerModify(double error){
 
 		
 		result.setDerivate(0,index,z[index]);
-        result.setDerivate(1,index,w[index]);
-        result.setDerivate(2,index,x[index]);
+        	result.setDerivate(1,index,w[index]);
+        	result.setDerivate(2,index,x[index]);
 		index++;
 	}
 	end = clock();
