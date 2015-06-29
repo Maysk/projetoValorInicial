@@ -18,10 +18,10 @@ Result Euler::forward(){
 
 	long double executionTimeInSec = 0;
 
-    clock_t executionTime = 0;
-    clock_t start;
-    clock_t end;
-    start = clock();
+    	clock_t executionTime = 0;
+    	clock_t start;
+    	clock_t end;
+    	start = clock();
 
 	Result result(steps+1);
 	result.setDeltaT(dt);
@@ -36,8 +36,8 @@ Result Euler::forward(){
 	x[0] = dy3;
 
 	result.setDerivate(0,0,z[0]);
-    result.setDerivate(1,0,w[0]);
-    result.setDerivate(2,0,x[0]);
+        result.setDerivate(1,0,w[0]);
+        result.setDerivate(2,0,x[0]);
 
 	int index = 1;
 	double currentStepTime = 0 + dt;
@@ -75,10 +75,10 @@ Result Euler::backward(double error){
 	// return iteration(error,multFacForward);
 	long double executionTimeInSec = 0;
 
-    clock_t executionTime = 0;
-    clock_t start;
-    clock_t end;
-    start = clock();
+        clock_t executionTime = 0;
+        clock_t start;
+        clock_t end;
+        start = clock();
 
 	Result result(steps+1);
 	result.setDeltaT(dt);
@@ -154,34 +154,34 @@ Result Euler::backward(double error){
 
 Result Euler::eulerModify(double error){
 	// return iteration(error,multFacModify);
-    long double executionTimeInSec = 0;
-
-    clock_t executionTime = 0;
-    clock_t start;
-    clock_t end;
-    start = clock();
-
-    int index = 1;
+	long double executionTimeInSec = 0;
+	
+	clock_t executionTime = 0;
+	clock_t start;
+	clock_t end;
+	start = clock();
+	
+	int index = 1;
 
 	Result result(steps+1);
 	result.setDeltaT(dt);
 	result.setValue(0,0,y1);
 	result.setValue(1,0,y2);
 	result.setValue(2,0,y3);
-
-    double derivadasDeZ[steps+1];
-    double derivadasDeW[steps+1];
-    double derivadasDeX[steps+1];
+	
+	double derivadasDeZ[steps+1];
+	double derivadasDeW[steps+1];
+	double derivadasDeX[steps+1];
 	double z[steps+1];
 	double w[steps+1];
 	double x[steps+1];
-
+	
 	z[0] = dy1;
 	w[0] = dy2;
 	x[0] = dy3;
 	result.setDerivate(0,0,z[0]);
-    result.setDerivate(1,0,w[0]);
-    result.setDerivate(2,0,x[0]);
+	result.setDerivate(1,0,w[0]);
+	result.setDerivate(2,0,x[0]);
 
 	while(index <= steps){
 		double ykn = result.getValue(0,index-1);
